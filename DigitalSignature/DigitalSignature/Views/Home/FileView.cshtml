@@ -27,17 +27,20 @@
     <tr>
         <th>Имя</th>
         <th>Дата</th>
-        <th></th>
+        <th>xls</th>
+        <th>p7s</th>
     </tr>
     @{
-        var paths = System.IO.Directory.GetFiles("Files");
-        foreach (var path in paths)
+        //var paths1 = System.IO.Directory.GetFiles("Files\\xls");
+        var paths2 = System.IO.Directory.GetFiles("Files\\p7s");
+        foreach (var path in paths2)
         {
-            <tr>
-                <th>@path.Split('\\').Last()</th>
-                <th>@System.IO.File.GetCreationTime(path)</th>
-                <th><a class="file-link" name="@path" asp-controller="Download" asp-action="Load" asp-route-path="@path">Скачать</a></th>
-            </tr>
+        <tr>
+            <th>@System.IO.Path.GetFileNameWithoutExtension(path)</th>
+            <th>@System.IO.File.GetCreationTime(path)</th>
+            <th><a class="file-link" name="@path" asp-controller="Download" asp-action="Load" asp-route-path="@path" asp-route-type="1">Скачать</a></th>
+            <th><a class="file-link" name="@path" asp-controller="Download" asp-action="Load" asp-route-path="@path" asp-route-type="2">Скачать</a></th>
+        </tr>
         }
     }
 

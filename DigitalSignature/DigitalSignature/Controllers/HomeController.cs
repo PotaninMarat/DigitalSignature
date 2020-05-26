@@ -73,37 +73,61 @@ namespace DigitalSignature.Controllers
         [HttpPost]
         public IActionResult UploadFiles()
         {
+            Random r = new Random();
             var form = Request.Form;
-            var first = form.FirstOrDefault();
-            var key = first.Key;
-            var splits = key.Split('.');
-            var name = "";
-            for (int i = 0; i < splits.Length-1; i++)
-                name += splits[i];
-            
 
-            var zp = "." + splits.Last();
-            var value = first.Value.FirstOrDefault();
+            var fileOrig = form.ElementAt(0);
+            var filePreproc = form.ElementAt(1);
+
+            var fileName1 = Preproc(fileOrig.Key);
+            var fileName2 = Preproc(filePreproc.Key);
+
+            var value1 = GetData(fileOrig.Value.FirstOrDefault());
+            var value2 = GetData(filePreproc.Value.FirstOrDefault());
+
+            var randInt = r.Next(1, 1000);
+
+            string path1 = $"Files\\xls\\{fileName1[0]}_{randInt}.{fileName1[1]}";
+            string path2 = $"Files\\p7s\\{fileName1[0]}_{randInt}.{fileName2[1]}";
+
+
+            using (var stream = new FileStream(path1, FileMode.Create))
+            {
+                stream.Write(value1, 0, value1.Length);
+            }
+            using (var stream = new FileStream(path2, FileMode.Create))
+            {
+                stream.Write(value2, 0, value2.Length);
+            }
+
+
+            return Json("Sucess");
+        }
+
+        private string[] Preproc(string fileName)
+        {
+            var key = fileName;
+            var splits = key.Split('.');
+
+            var name = "";
+            for (int i = 0; i < splits.Length - 1; i++)
+                name += splits[i];
+
+            var zp = splits.Last();
+
+            return new string[] { name, zp };
+        }
+
+        private byte[] GetData(string data)
+        {
+            var value = data;
             var spltB = value.Split(',');
+
             var bytes = new byte[spltB.Length];
             for (int i = 0; i < spltB.Length; i++)
                 bytes[i] = byte.Parse(spltB[i]);
-            
 
-            Random r = new Random();
-
-            string path = $"Files\\";
-
-            if (zp == ".p7s") path += "p7s\\";
-            else path += "xls\\";
-
-            path += $"{name}_{r.Next(1, 10000)}{zp}";
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                stream.Write(bytes, 0, bytes.Length);
-            }
-            return Json("Sucess");
+            return bytes;
         }
     }
 }

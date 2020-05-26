@@ -14,22 +14,55 @@ namespace DigitalSignature.Controllers
     {
         [Authorize]
         [HttpGet("download")]
-        public IActionResult Load(string path)
+        public IActionResult Load(string path, int type)
         {
-            using (var stream = new FileStream(path, FileMode.Open))
+            var splits = path.Split('\\').Last().Split('.');
+            var name = "";
+            for (int i = 0; i < splits.Length - 1; i++)
             {
-                var bytesT = new byte[stream.Length];
-                var l = stream.Read(bytesT, 0, bytesT.Length);
-                //var bytes = new byte[l];
-                //for (int i = 0; i < l; i++)
-                //{
-                //    bytes[i] = bytesT[i];
-                //}
-                var content = new System.IO.MemoryStream(bytesT);
-                //string mimeType = MimeUtility.GetMimeMapping(path);
-                var contentType = "APPLICATION/octet-stream";
-                return File(content, contentType, path.Split('\\').Last());
+                name += splits[i];
             }
+
+            if (type == 1)
+            {
+                var paths = System.IO.Directory.GetFiles("Files\\xls");
+                foreach (var path_ in paths)
+                {
+                    var splitsLoc = path_.Split('\\').Last().Split('.');
+                    var nameLoc = "";
+                    for (int i = 0; i < splitsLoc.Length - 1; i++)
+                    {
+                        nameLoc += splitsLoc[i];
+                    }
+
+                    if (nameLoc == name)
+                    {
+                        using (var stream = new FileStream(path_, FileMode.Open))
+                        {
+                            var bytesT = new byte[stream.Length];
+                            var l = stream.Read(bytesT, 0, bytesT.Length);
+                            var content = new System.IO.MemoryStream(bytesT);
+                            //string mimeType = MimeUtility.GetMimeMapping(path);
+                            var contentType = "APPLICATION/octet-stream";
+                            return File(content, contentType, path_.Split('\\').Last());
+                        }
+                    }
+                }
+            }
+            else if (type == 2)
+            {
+                using (var stream = new FileStream(path, FileMode.Open))
+                {
+                    var bytesT = new byte[stream.Length];
+                    var l = stream.Read(bytesT, 0, bytesT.Length);
+                    var content = new System.IO.MemoryStream(bytesT);
+                    //string mimeType = MimeUtility.GetMimeMapping(path);
+                    var contentType = "APPLICATION/octet-stream";
+                    return File(content, contentType, path.Split('\\').Last());
+                }
+            }
+
+            return Json("File not exist");
         }
     }
 }
