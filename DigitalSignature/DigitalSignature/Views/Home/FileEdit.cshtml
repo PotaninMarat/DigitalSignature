@@ -1,0 +1,633 @@
+﻿
+@{
+    ViewData["Title"] = "FileView";
+}
+
+<style>
+    center {
+        margin: auto;
+        margin-top: 15%;
+    }
+
+    #sign-widget-parent {
+        height: 400px !important;
+    }
+    /* Фіксований підвал */
+    html {
+        position: relative;
+        min-height: 100%;
+    }
+
+    body {
+        /* Відступ на висоту підвалу */
+        margin-bottom: 230px;
+        background-color: #eee;
+    }
+
+    #footer {
+        width: 100%;
+        height: 230px;
+        position: absolute;
+        bottom: 0;
+        background-color: black;
+        color: white;
+        /*border-top: 15px solid #007f33;*/
+    }
+
+        #footer a {
+            color: white;
+        }
+
+            #footer a:hover {
+                color: white;
+            }
+
+    /* Головний блок */
+    #main {
+        overflow: auto;
+    }
+
+        #main h1 {
+            border-bottom: dotted 1px #5083AC;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+    /* Градієнт */
+    .czogradient {
+        background-image: linear-gradient(45deg, #04C65D, #5B5AFF);
+    }
+
+    /* Dropdown-меню */
+    .dropdown-menu {
+        font-size: 12px;
+    }
+
+    /* Інше */
+    h4 {
+        font-size: 1.1em;
+    }
+
+    a {
+        color: #000;
+    }
+
+    .header_block {
+        cursor: pointer;
+    }
+
+    li.pimp {
+        background: url(/images/pimp.png) no-repeat 0px 5px;
+        list-style-type: none;
+        margin-left: 10px;
+        padding-left: 20px;
+        padding-bottom: 0px;
+        margin-top: 10px;
+    }
+
+
+    div.inner_block span.block_header {
+        display: block;
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+
+    ol, ul {
+        margin-bottom: 0px;
+    }
+
+    .inner_block h1 {
+        font-size: 1.3em;
+    }
+
+    .news_entry h2 {
+        font-size: 1em;
+        margin-bottom: 3px;
+    }
+
+    .news_entry p {
+        margin-top: 10px;
+        margin-bottom: 3px;
+    }
+
+        .news_entry p.date {
+            font-style: italic;
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+
+        .news_entry p img {
+            float: right;
+            margin-top: 5px;
+        }
+
+    hr {
+        border-top: dashed 1px #333;
+    }
+
+
+    .document h1 {
+    }
+
+    .document h2 {
+        font-size: 1.0em;
+    }
+
+    .document h3 {
+        margin-top: 20px;
+        font-size: 1.2em;
+    }
+
+    .document .center {
+        text-align: center;
+    }
+
+    .document p {
+        margin-top: 10px;
+        text-align: justify;
+        padding-bottom: 10px;
+        margin-bottom: 0px;
+    }
+
+        .document p img.left {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .document p img.right {
+            float: right;
+            margin-left: 10px;
+        }
+
+    .document a {
+    }
+
+    .document p.caption {
+        clear: both;
+        margin-bottom: 20px;
+        width: 100%;
+        font-weight: bold;
+    }
+
+        .document p.caption span.title {
+            margin-left: 5%;
+            float: left;
+        }
+
+        .document p.caption span.name {
+            float: right;
+            margin-right: 5%;
+        }
+
+    .document .rightField {
+        padding-left: 50%;
+    }
+
+
+    .document .blank figcaption {
+        text-align: center;
+        border-top: 1px solid;
+    }
+
+        .document .blank figcaption.dotline {
+            text-align: center;
+            border-top: 1px dotted;
+        }
+
+    .section h1 {
+        text-transform: uppercase;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .right {
+        text-align: right !important;
+    }
+
+    th {
+        font-weight: bold;
+        border-bottom: solid 1px #777;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+    }
+
+        th.center {
+            text-align: center;
+        }
+
+    table.row-borders td {
+        border-bottom: dotted 1px #555;
+        padding-right: 10px;
+    }
+
+    table.row-solidborders th {
+        border: solid 1px;
+    }
+
+    table.row-solidborders td {
+        border: solid 1px;
+    }
+
+    .document .gerb {
+        padding-top: 80px;
+        margin-top: 20px;
+        background: url(/images/gerb.gif) center 0px no-repeat;
+        overflow: visible;
+    }
+
+    .section_list h3 {
+        font-size: 1.3em;
+        border-bottom: dotted 1px #333;
+    }
+
+    table.small-fonts td {
+        font-size: 0.8em;
+    }
+
+    img.archive_thumbs {
+        border: solid 1px #bbb;
+    }
+
+    ul.archive_elements {
+        margin: 0px;
+    }
+
+        ul.archive_elements li {
+            display: block;
+            border: solid 1px #bbb;
+            padding: 5px;
+            float: left;
+            text-align: center;
+            margin: 0px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            min-height: 165px;
+        }
+
+            ul.archive_elements li.file {
+                display: list-item;
+            }
+
+            ul.archive_elements li img {
+                margin-top: 4px;
+            }
+
+    .tooltip .description {
+        display: none;
+        border: solid 1px #777;
+        float: left;
+        position: absolute;
+        left: 18px;
+        margin-top: -100px;
+        background-color: #D6DBFA;
+        padding: 5px;
+        width: 573px;
+        max-height: 200px;
+        overflow: auto;
+        text-decoration: none !important;
+    }
+
+    .tooltip {
+        display: inline;
+        border-bottom: dotted 1px #333;
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+    div.inner_block img.emblems {
+        max-width: 550px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        padding: 5px;
+        border: solid 1px #ccc;
+    }
+
+    .section_list h3 {
+        margin-top: 20px;
+    }
+
+    div.paging {
+        overflow-x: auto;
+        overflow-y: no;
+        width: 100%;
+        height: 45px;
+    }
+
+        div.paging > div {
+            white-space: nowrap;
+        }
+
+        div.paging span {
+            list-style: none;
+            padding: 5px;
+            padding-bottom: 2px;
+            padding-top: 2px;
+            margin: 0px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border: solid 1px #777;
+            font-size: 0.8em;
+            background-color: #ddd;
+        }
+
+            div.paging span:hover {
+                background-color: #ccc;
+            }
+
+            div.paging span.current {
+                background-color: #fff;
+            }
+
+    #logo {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+        #logo h1 {
+            color: #305ab0;
+            height: 30px;
+            padding-bottom: 5px;
+        }
+
+        #logo p {
+            color: #777;
+            margin-left: 1px;
+        }
+
+        #logo h1 {
+            margin-bottom: 0px;
+        }
+
+        #logo h2 {
+            font-size: 1em;
+            margin-bottom: 3px;
+            margin-left: 1px;
+            text-transform: uppercase;
+            color: #5083AC;
+        }
+
+    .float-right {
+        float: right;
+    }
+
+    div.left_block {
+        padding-right: 10px;
+        border-right: solid 1px #ccc;
+    }
+
+    ul.mainmenu {
+        line-height: 28px;
+    }
+
+        ul.mainmenu li {
+            margin-left: 0px;
+            text-transform: uppercase;
+            list-style: none;
+            font-size: 110%;
+            padding-left: 5px;
+            border-top: dotted 1px #ccc;
+        }
+
+            ul.mainmenu li a {
+                color: #000;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            ul.mainmenu li:hover {
+                background-color: #9BBBD5;
+            }
+
+    .header_block {
+        border-bottom: solid 1px #ccc;
+        margin-bottom: 10px;
+    }
+
+    .section_list ul {
+        margin-left: 5px;
+    }
+
+    .document h1,
+    .document h4,
+    .inner_block h1 {
+        border-bottom: dotted 1px #5083AC;
+        text-transform: uppercase;
+        margin-top: 7px;
+        font-size: 1.1em;
+    }
+
+    .banner_block {
+        padding-top: 50px;
+        text-align: center;
+    }
+
+        .banner_block a {
+            display: block;
+            padding-bottom: 5px;
+        }
+
+    ul.certs {
+        margin-top: 20px;
+    }
+
+        ul.certs li {
+            display: block;
+            float: left;
+            margin-left: 0px;
+            padding-top: 5px;
+            padding-left: 35px;
+            padding-right: 15px;
+            background: url(/images/CertPackageIcon.gif) no-repeat;
+            height: 30px;
+            margin-bottom: 10px;
+        }
+
+    /*ul.certs li.outdated {
+            background: url(/images/OutdatedCertPackageIcon.gif) no-repeat;
+        }*/
+
+    table.row-borders {
+        width: 100%;
+    }
+
+    .main_block {
+    }
+
+    .root_block {
+        background-color: #fff;
+        min-height: 100%;
+        border-left: solid 1px #ccc;
+        border-right: solid 1px #ccc;
+        padding: 10px;
+    }
+
+    li.cer {
+        background: url(/images/CertPackageIcon.gif) no-repeat 0px 0px;
+        list-style-type: none;
+        margin-left: 0px;
+        padding-left: 35px;
+        padding-top: 5px;
+        padding-bottom: 0px;
+        margin-top: 10px;
+        min-height: 30px;
+    }
+
+    li.crl {
+        background: url(/images/crl.gif) no-repeat 0px 0px;
+        list-style-type: none;
+        margin-left: 0px;
+        padding-left: 35px;
+        padding-top: 7px;
+        padding-bottom: 0px;
+        margin-top: 10px;
+        min-height: 30px;
+    }
+
+    div.news div.item {
+        border-bottom: dotted 1px #ccc;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 10px;
+    }
+
+    div.news p.date {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        font-weight: bold;
+    }
+
+    div.news p.announce {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+
+    div.news p.news_footer {
+        padding-top: 0px;
+        margin-top: 0px;
+        padding-right: 4px;
+        text-align: right;
+        font-style: italic;
+    }
+
+    div.news h4 {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+
+    div.news div.item h4 {
+        border: 0px;
+    }
+
+    p.delimiter {
+        margin: 0px;
+    }
+
+    .blue_bg {
+        background-color: #FFFAEB;
+    }
+
+    table.doc tr td {
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
+
+    /* ЕКРАНИ */
+    @@media (max-width: 991px) {
+        /* Згорнуте меню */
+        #navbar-collapsible {
+            background-color: white;
+        }
+
+            #navbar-collapsible a {
+                color: black;
+            }
+    }
+
+    @@media (max-width: 767px) {
+        /* Підвал на середньому */
+        body {
+            margin-bottom: 320px;
+        }
+
+        #footer {
+            height: 320px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        /* Підвал на мобільному */
+        body {
+            margin-bottom: 400px;
+        }
+
+        #footer {
+            height: 400px;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        /* Відступи між пунктами меню */
+        .nav-item {
+            margin: 0 4px;
+        }
+    }
+
+    /* Назва організації у шапці */
+    #orgname-sm {
+        display: none;
+    }
+
+    #orgname-md {
+        display: inline-block;
+    }
+
+    @@media (max-width: 581px) {
+        #orgname-sm {
+            display: inline-block;
+        }
+
+        #orgname-md {
+            display: none;
+        }
+    }
+
+    /* Зображення у новинах */
+    .newslistlogo {
+        float: left;
+        margin: 0px 10px 10px 0px;
+        width: 360px;
+        max-height: 360px;
+    }
+
+    .newslogo {
+        float: left;
+        margin: 0px 10px 10px 0px;
+        width: 360px;
+        max-height: 360px;
+    }
+
+    @@media (max-width: 767px) {
+        .newslistlogo {
+            float: none;
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="container-write">
+    <center>
+
+        <div id="sign-widget-parent" style="max-width: 600px;height: 600px;">
+            <iframe src="~/iframes/frame-load.html?address=https://czo.gov.ua&formType=3&debug=false" id="sign-widget" frameborder="0" allowtransparency="true" width="100%" height="100%">
+                <asp:FileUpload ID="fileUpload" runat="server" />
+            </iframe>
+        </div>
+
+    </center>
+</div>
+

@@ -1,0 +1,183 @@
+﻿@model DigitalSignature.Models.LoginModel
+<style>
+    .text-center {
+        position: absolute;
+        width: 100%;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .img {
+        background-image: url('/../sources/imgs/load.png');
+        width: 28px;
+        height: 28px;
+        background-size: cover;
+        margin: auto;
+    }
+
+    .form-main {
+        position: absolute;
+        font-size: 14px;
+        left: 50%;
+        top: 55%;
+        transform: translate(-50%, -50%);
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
+        background: #fff;
+        padding: 30px;
+        width: 90%;
+        max-width: 450px;
+        padding: 0px;
+        -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        text-align: center;
+    }
+
+    .form-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 2rem;
+    }
+
+
+
+
+
+
+    #formContent {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
+        background: #fff;
+        padding: 30px;
+        width: 90%;
+        max-width: 450px;
+        padding: 0px;
+        -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        text-align: center;
+    }
+
+
+    input[type=text] {
+        background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+    }
+
+    input[type=button], input[type=submit], input[type=reset] {
+        background-color: #56baed;
+        border: none;
+        color: white;
+        padding: 15px 80px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 13px;
+        -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+        box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        margin: 5px 20px 20px 20px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    #icon {
+        width: 60%;
+    }
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+    }
+
+    #formFooter {
+        background-color: #f6f6f6;
+        border-top: 1px solid #dce8f1;
+        padding: 25px;
+        text-align: center;
+        -webkit-border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .display-4 {
+        font-weight: 100;
+    }
+
+        .display-4 h1 {
+            font-weight: 100;
+        }
+
+        .display-4 span {
+            font-size: 28px;
+            font-weight: 100;
+            display: block;
+        }
+
+    .display-4-block {
+        display: inline-flex;
+    }
+</style>
+
+<div class="text-center">
+    <div class="display-4">
+        <div class="display-4-block">
+            <h1>Файлообменник</h1>
+            <div class="img"></div>
+        </div>
+        <span>с электронно-цифровой подписью</span>
+    </div>
+</div>
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="form-main">
+    <div class="validation" asp-validation-summary="ModelOnly" />
+    <div class="form-container">
+        <div class="form-group">
+            <label asp-for="Email">Введите Email</label>
+            <input asp-for="Email" type="text" name="Email" autocomplete="off" placeholder="Логин">
+            <span asp-validation-for="Email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Введите пароль</label>
+            <input asp-for="Password" type="text" name="Password" autocomplete="off" placeholder="Пароль">
+            <span asp-validation-for="Password" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" id="subbut" value="Войти">
+        </div>
+    </div>
+
+    <div id="formFooter">
+        <a class="underlineHover" href="#"></a>
+    </div>
+</form>

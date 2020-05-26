@@ -1,0 +1,223 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background:none transparent;
+	font-family:Arial, Tahoma, Helvetica;
+	font-weight:normal;
+	color: black;
+}
+
+a {
+	cursor:pointer;
+	pointer-events:auto;
+	color: black;
+}
+
+.Block {
+	margin-bottom:0.5em;
+}
+
+.Block h1 {
+	text-align:left;
+	font-size:1em;
+	padding: 0px;
+	margin: 0px;
+}
+
+.Block h2 {
+	text-align:left;
+	font-size:0.8em;
+	font-weight: bold;
+	padding: 0px;
+	margin: 0px;
+}
+
+.Block h5 {
+	margin: 0px;
+	padding: 0px 0px 10px 0px;
+	font-size: 1.25rem;
+	word-break: break-word;
+}
+
+.Block h6 {
+	opacity: 0.5;
+	margin: 0px;
+	padding: 0px 0px 4px 0px;
+	font-size: 0.75rem;
+}
+
+.FlexBlock {
+	display: -ms-flexbox; /* IE10 */
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom:0.5em;
+}
+
+.FlexBlockItem + .FlexBlockItem {
+	padding-left: 20px;
+}
+
+.SplitLine {
+	width: 100%;
+	height: 1px;
+	background-color: black;
+	margin-bottom:0.5em;
+}
+
+.ErrorBlock {
+	color:red;
+}
+
+.StatusBlock {
+	color:green;
+}
+
+.TextField {
+	color: black;
+	border: 2px solid black;
+	width:100%;
+	height: 26px;
+	padding: 0px 4px 0px 4px;
+}
+
+.TextField:disabled {
+	border: 2px solid rgba(11, 35, 73, 0.25);
+	color: rgba(11, 35, 73, 0.25);
+}
+
+.ButtonBlock {
+	text-align: right;
+}
+
+.Button {
+	display: inline-block;
+	overflow:hidden;
+	text-align: center;
+	min-width: 120px;
+	border: 2px solid black;
+	color: black;
+	font-weight: normal;
+	box-shadow: inset 0 0 0 0 rgba(11, 35, 73, 0);
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+	padding: 2px 4px 2px 4px;
+}
+
+.Button:hover {
+	box-shadow: inset 0 100px 0 0 black;
+	color: rgba(255, 255, 255, 1);
+	text-decoration: none;
+}
+
+	.Button a {
+		text-decoration: none;
+		cursor: pointer;
+		pointer-events: inherit;
+		color: black;
+		width: 100%;
+		/*height: 100%;*/
+		display: inline-block;
+	}
+
+.Button:hover a {
+	color: rgba(255, 255, 255, 1);
+}
+
+.Button input {
+	visibility: hidden;
+	display: none;
+}
+
+.Button[disabled] {
+	border: 2px solid rgba(11, 35, 73, 0.25);
+	color: rgba(11, 35, 73, 0.25);
+	pointer-events:none;
+}
+
+.Button[disabled] a {
+	color: rgba(11, 35, 73, 0.25);
+}
+
+.ButtonWithLeftMargin {
+	margin-left:4px;
+}
+
+.Select {
+	color: black;
+	border: 2px solid black;
+	width:100%;
+	height:26px;
+}
+
+.Select:disabled {
+	border: 2px solid rgba(11, 35, 73, 0.25);
+	color: rgba(11, 35, 73, 0.25);
+}
+
+.SignResult {
+	background: rgba(186, 225, 144, 1);
+	border: 0px solid;
+	border-radius: 10px;
+	padding: 20px 20px 20px 20px;
+	color: black;
+	text-transform: uppercase;
+	word-break: break-word;
+	font-size: 14px;
+}
+
+.InfoBlock {
+	color: black;
+	border: 2px solid;
+    padding: 10px;
+	border-radius: 10px;
+}
+
+.InfoBlock ul {
+	margin: 0px;
+    padding-left: 2em;
+}
+
+.InfoContentBlock {
+	border: 0px solid;
+	padding: 10px;
+	color: black;
+	word-break: break-word;
+	font-size: 14px;
+}
+
+.Arrow {
+	border: solid black;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+	margin-left: 5px;
+}
+
+.Arrow[direction=up] {
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+}
+
+.Arrow[direction=down] {
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+}
+
+.Arrow[direction=right] {
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+}
+
+.Arrow[direction=left] {
+	transform: rotate(135deg);
+	-webkit-transform: rotate(135deg);
+}
+
+#proxyPortTextField {
+	width:60px;
+	text-align:center;
+}

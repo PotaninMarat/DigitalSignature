@@ -1,0 +1,555 @@
+﻿<html xmlns="http://www.w3.org/1999/html" class="translated-ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>АО "ИИТ" web-виджет подписи пользователя ЦСК</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/czo.gov.ua.css?v=20200518">
+
+
+    <script type="text/javascript" src="/js/lib/Blob.min.js?v=20200518"></script>
+    <script type="text/javascript" src="/js/lib/FileSaver.js?v=20200518"></script>
+    <script type="text/javascript" src="/js/lib/jquery.js?v=20200518"></script>
+    <script type="text/javascript" src="/js/lib/jquery.blockUI.js?v=20200518"></script>
+    <script type="text/javascript" src="/js/lib/jszip.min.js?v=20200518"></script>
+    <script type="text/javascript" src="/js/app.js?v=20200518"></script>
+    <script type="text/javascript">
+        var LIBRARY_SETTINGS = {
+            "language": "uk",
+            "encoding": "utf-8",
+            "httpProxyServiceURL": "https://id.gov.ua/sign-widget/v20200519/Server/ProxyHandler.php",
+            "directAccess": true,
+            "CAs": "/Data/CAs.json",
+            "CACertificates": "/Data/CACertificates.p7b",
+            "allowedKeyMediaTypes": [
+                "е.ключ BIFIT iToken",
+                "криптомод. ІІТ Гряда-61",
+                "е.ключ ІІТ Алмаз-1К",
+                "е.ключ ІІТ Кристал-1",
+                "ID-карта громадянина (БЕН)",
+                "е.ключ ІІТ Алмаз-1К (PKCS#11)",
+                "е.ключ ІІТ Кристал-1 (PKCS#11)",
+                "е.ключ чи смарт-карта Avest (PKCS#11)",
+                "е.ключ Ефіт Key (PKCS#11)",
+                "е.ключ чи смарт-карта Автор (PKCS#11)",
+                "смарт-карта Техноконс. TEllipse3 (PKCS#11)",
+                "смарт-карта Техноконс. TEllipse",
+                "смарт-карта Техноконс. TEllipse2/3"
+            ],
+            "mssServiceURL": "https://id.gov.ua/sign-widget/v20200519/Server/KSPSignController.php",
+            "passwordRequirements": null,
+            "KSPs": [
+                {
+                    "name": "ДП НАІС - хмарний підпис (тестування)",
+                    "ksp": 4,
+                    "address": "https://ssign.informjust.ua",
+                    "port": "443",
+                    "directAccess": true
+                },
+                {
+                    "name": "DepositSign (тестування)",
+                    "ksp": 4,
+                    "address": "https://depositsign.com/api/v1/informjust/sign-server",
+                    "port": "",
+                    "directAccess": true
+                },
+                {
+                    "name": "UKey (тестування)",
+                    "ksp": 5
+                }
+            ],
+            "allowMakeNewCertOnNewKeyMedia": false,
+            "allowMakeNewCertOnFileKeyMedia": false
+        };
+        var LOCALIZATION = null;
+    </script>
+</head>
+
+<body style="">
+    <noscript>
+        <style>
+            #mainBlock {
+                display: none;
+            }
+        </style>
+        <div class="ErrorBlock">
+            <h1>Для роботи JavaScript має бути ввімкненим!</h1>
+        </div>
+    </noscript>
+
+    <div id="mainBlock" class="Block" style="position: static; zoom: 1;">
+        <div id="titleBlock" class="Block">
+            <div id="titleLabelBlock" class="Block">
+                <h1 id="titleLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Создание квалифицированного электронной подписи</font></font></h1>
+            </div>
+            <div id="subTitleLabelBlock" class="Block">
+                <h2 id="subTitleLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Выберите тип носителя личного ключа, личный ключ, введите пароль защиты ключа и нажмите "Считать"</font></font></h2>
+            </div>
+            <div class="SplitLine"></div>
+        </div>
+        <div id="pkTypesBlock" class="Block">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Тип носителя личного ключа:</font></font></label>
+            <br>
+            <div id="pkTypeFileRadioButton">
+                <input type="radio" name="pkTypesRadio" id="pkTypeFileRadioButtonInput" value="1" align="left" checked="checked">
+                <label id="pkTypeFileTitle" for="pkTypeFileRadioButtonInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Файловый носитель (flash-диск, CD-диск, SD-карта и т.д.)</font></font></label>
+                <br>
+            </div>
+            <div id="pkTypeKMRadioButton">
+                <input type="radio" name="pkTypesRadio" id="pkTypeKMRadioButtonInput" value="2" align="left">
+                <label id="pkTypeKMTitle" for="pkTypeKMRadioButtonInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Защищенный носитель (е.ключ Алмаз-1К, Кристалл-1 и т.д.)</font></font></label>
+                <br>
+            </div>
+            <div id="pkTypeSIMRadioButton">
+                <input type="radio" name="pkTypesRadio" id="pkTypeSIMRadioButtonInput" value="3" align="left">
+                <label id="pkTypeSIMTitle" for="pkTypeSIMRadioButtonInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SIM-карта</font></font></label>
+                <br>
+            </div>
+
+            <div id="pkTypeKSPRadioButton" style="">
+                <input type="radio" name="pkTypesRadio" id="pkTypeKSPRadioButtonInput" value="4" align="left">
+                <label id="pkTypeKSPTitle" for="pkTypeKSPRadioButtonInput"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Носитель в составе сервиса</font></font></label>
+                <br>
+            </div>
+        </div>
+
+        <div id="statusBlock" class="Block StatusBlock" style="display:none">
+            <label id="statusLabel"></label>
+        </div>
+        <div id="installBlock" class="Block" style="display:none;">
+            <div>
+                <label id="installLabel"></label>
+            </div>
+            <div>
+                <a id="installURL" target="_blank"></a>
+            </div>
+            <div>
+                <a id="installHelpURL" target="_blank"></a>
+            </div>
+            <div class="ButtonBlock">
+                <div id="updatePageButton" class="Button">
+                    <a href="javascript:void(0);" title="обновить страницу" onclick="location.href = location.href;">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                обновить страницу
+                            </font>
+                        </font>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="proxySettingsBlock" class="Block" style="display:none">
+            <div>
+                <input id="proxyUseCheckbox" class="Checkbox" type="checkbox"><font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">
+                        Подключаться через proxy-сервер
+                    </font>
+                </font>
+            </div>
+            <div id="proxyUseBlock" class="Block">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">DNS-имя или ip-адрес proxy-сервера, TCP-порт:</font></font></label>
+                <br>
+                <div class="FlexBlock">
+                    <input id="proxyAddressTextField" class="TextField" type="text"><font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            :
+                        </font>
+                    </font><input id="proxyPortTextField" class="TextField" type="text" maxlength="5">
+                </div>
+                <br>
+                <br>
+                <div>
+                    <input id="proxyAuthCheckbox" class="Checkbox" type="checkbox"><font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            Автентификуватися на proxy-сервере
+                        </font>
+                    </font>
+                </div>
+                <div id="proxyAuthBlock" class="Block">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Имя пользователя:</font></font></label>
+                    <br>
+                    <input id="proxyUserTextField" class="TextField" type="text">
+                    <br>
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">пароль:</font></font></label>
+                    <br>
+                    <input id="proxyPasswordTextField" class="TextField" type="password">
+                    <br>
+                </div>
+            </div>
+            <div id="proxySaveBlock" class="ButtonBlock">
+                <br>
+                <div id="proxySaveButton" class="Button">
+                    <a href="javascript:void(0);" title="сохранить">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                сохранить
+                            </font>
+                        </font>
+                    </a>
+                </div>
+                <div id="proxyCancelButton" class="Button">
+                    <a href="javascript:void(0);" title="Отмена">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Отмена
+                            </font>
+                        </font>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="pkBlock" class="Block">
+            <div id="proxyButtonBlock" class="Block" style="display:none">
+                <div class="ButtonBlock">
+                    <div id="proxyButton" class="Button">
+                        <a href="javascript:void(0);" title="Налаштування">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Настройка
+                                </font>
+                            </font>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pkCABloсk" class="Block">
+                <div id="pkCASelectBlock" class="Block">
+                    <label id="pkCATitleLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Квалифицированный предоставитель эл. </font><font style="vertical-align: inherit;">доверительных услуг:</font></font></label>
+                    <br>
+                    <select id="pkCASelect" class="Select"><option value="0">Визначити автоматично</option><option value="1">КНЕДП - ІДД ДПС</option><option value="2">АЦСК органів юстиції України</option><option value="3">Акредитований центр сертифікації ключів Укрзалізниці</option><option value="4">АЦСК "MASTERKEY" ТОВ "АРТ-МАСТЕР"</option><option value="5">АЦСК ТОВ "КС"</option><option value="6">АЦСК ДП «УСС»</option><option value="7">АЦСК Публічного акціонерного товариства "УкрСиббанк"</option><option value="8">АЦСК АТ КБ «ПРИВАТБАНК»</option><option value="9">Акредитований Центр сертифікації ключів Збройних Сил</option><option value="10">Кваліфікований надавач ЕДП "Військова частина 2428"</option><option value="11">КНЕДП "АЦСК ринку електричної енергії"</option><option value="12">КНЕДП - АЦСК МВС України</option><option value="13">АЦСК Національного банку України</option><option value="14">АЦСК ТОВ "Центр сертифікації ключів "Україна"</option><option value="15">Кваліфікований надавач ЕДП "Казначейство"</option><option value="16">Акредитований центр сертифікації ключів ПАТ "НДУ"</option><option value="17">АЦСК 'eSign' ТОВ 'Алтерсайн'</option><option value="18">АЦСК ДП 'Український інститут інтелектуальної власності'</option><option value="19">Акредитований центр сертифікації ключів АТ "Ощадбанк"</option><option value="20">АЦСК Генеральної прокуратури України</option></select>
+                </div>
+            </div>
+
+            <div id="pkReadFileBlock" class="Block VisibleBlock">
+                <div id="pkReadFileSelectFileBlock" class="Block">
+                    <label id="pkReadFileTitleLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Личный ключ (Key-6.dat, * .pfx, * .pk8, * .zs2 или * .jks):</font></font></label>
+                    <br>
+                    <div class="FlexBlock">
+                        <input id="pkReadFileTextField" class="TextField" type="text" readonly="true" onclick="document.getElementById('pkReadFileInput').click();">
+                        <div id="pkReadFileSelectButton" class="Button ButtonWithLeftMargin">
+                            <a href="javascript:void(0);" title="Выбрать" onclick="document.getElementById('pkReadFileInput').click();">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Выбрать
+                                    </font>
+                                </font>
+                            </a>
+                            <input id="pkReadFileInput" type="file" accept=".dat,.pfx,.pk8,.zs2,.jks">
+                        </div>
+                    </div>
+                </div>
+                <div id="pkReadFileSelectAliasBlock" class="Block" style="display:none">
+                    <label>Ім'я ключа:</label>
+                    <br>
+                    <select id="pkReadFileAliasSelect" class="Select" disabled=""></select>
+                </div>
+                <div id="pkReadFilePasswordBlock" class="Block">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пароль защиты ключа:</font></font></label>
+                    <br>
+                    <input id="pkReadFilePasswordTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkReadFileCertsBlock" class="Block" style="display:none">
+                    <label>Сертифікати ос. ключа (*.cer або *.crt):</label>
+                    <br>
+                    <div class="FlexBlock">
+                        <input id="pkReadFileCertsTextField" class="TextField" type="text" readonly="true" onclick="document.getElementById('pkReadFileCertsInput').click();" disabled="">
+                        <div id="pkReadFileCertsFileSelectButton" class="Button ButtonWithLeftMargin" disabled="disabled">
+                            <a href="javascript:void(0);" title="Обрати" onclick="document.getElementById('pkReadFileCertsInput').click();">
+                                Обрати
+                            </a>
+                            <input id="pkReadFileCertsInput" type="file" multiple="true" accept=".cer,.crt">
+                        </div>
+                    </div>
+                </div>
+                <div id="pkReadFileButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkReadFileButton" class="Button" disabled="disabled"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">считать</font></font></div>
+                </div>
+            </div>
+
+            <div id="pkReadKMBlock" class="Block" style="display:none">
+                <div id="pkReadKMSelectBlock" class="Block">
+                    <label id="pkReadKMTitleLabel">Носій особистого ключа:</label>
+                    <br>
+                    <select id="pkReadKMSelect" class="Select"></select>
+                </div>
+                <div id="pkReadKMUserBlock" class="Block" style="display:none">
+                    <label id="pkReadKMUserTitleLabel">Ім'я користувача:</label>
+                    <br>
+                    <input id="pkReadKMUserTextField" class="TextField" disabled="">
+                </div>
+                <div id="pkReadKMPasswordBlock" class="Block">
+                    <label>Пароль захисту ключа:</label>
+                    <br>
+                    <input id="pkReadKMPasswordTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkReadKMCertsBlock" class="Block" style="display:none">
+                    <label>Сертифікати ос. ключа (*.cer або *.crt):</label>
+                    <br>
+                    <div class="FlexBox">
+                        <input id="pkReadKMCertsTextField" class="TextField" type="text" readonly="true" onclick="document.getElementById('pkReadKMCertsInput').click();">
+                        <div id="pkReadKMCertsFileSelectButton" class="Button ButtonWithLeftMargin">
+                            <a href="javascript:void(0);" title="Обрати" onclick="document.getElementById('pkReadKMCertsInput').click();">
+                                Обрати
+                            </a>
+                            <input id="pkReadKMCertsInput" type="file" multiple="true" accept=".cer,.crt">
+                        </div>
+                    </div>
+                </div>
+                <div id="pkReadKMButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkReadKMButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Зчитати">
+                            Зчитати
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pkReadSIMBlock" class="Block" style="display:none">
+                <div id="pkReadSIMSelectBlock" class="Block">
+                    <label id="pkReadSIMTitleLabel">Мобільний оператор:</label>
+                    <br>
+                    <select id="pkReadSIMSelect" class="Select">
+                        <option value="1">Київстар</option>
+                        <option value="2">Vodafone</option>
+                    </select>
+                </div>
+                <div id="pkReadSIMMSISDNBlock" class="Block">
+                    <label>Номер телефону:</label>
+                    <br>
+                    <div class="FlexBlock">
+                        <label>+380</label>
+                        <input id="pkReadSIMMSISDNTextField" class="TextField" type="text" maxlength="9" disabled="">
+                    </div>
+                </div>
+                <div id="pkReadSIMButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkReadSIMButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Зчитати">
+                            Зчитати
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pkReadKSPBlock" class="Block" style="display:none">
+                <div id="pkReadKSPSelectBlock" class="Block">
+                    <label id="pkReadKSPTitleLabel">Тип сервісу підпису:</label>
+                    <br>
+                    <select id="pkReadKSPSelect" class="Select"><option value="4">ДП НАІС - хмарний підпис (тестування)</option><option value="4">DepositSign (тестування)</option><option value="5">UKey (тестування)</option></select>
+                </div>
+                <div id="pkReadKSPUserIdBlock" class="Block">
+                    <label>Ідентифікатор користувача:</label>
+                    <br>
+                    <input id="pkReadKSPUserIdTextField" class="TextField" type="text" disabled="" style="text-transform: uppercase;">
+                </div>
+                <div id="pkReadKSPButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkReadKSPButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Зчитати">
+                            Зчитати
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pkWriteFileBlock" class="Block" style="display:none">
+                <div id="pkWriteFileSelectFileBlock" class="Block">
+                    <label>Ім`я файла з особистим ключем:</label>
+                    <br>
+                    <input id="pkWriteFileTextField" class="TextField" type="text" value="Key-6.dat">
+                </div>
+                <div id="pkWriteFilePasswordBlock" class="Block">
+                    <label>Пароль захисту ключа:</label>
+                    <br>
+                    <input id="pkWriteFilePasswordTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkWriteFilePasswordConfirmBlock" class="Block">
+                    <label>Підтвердження пароля захисту ключа:</label>
+                    <br>
+                    <input id="pkWriteFilePasswordConfirmTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkWriteFileButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkWriteFileButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Сформувати">
+                            Сформувати
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pkWriteKMBlock" class="Block" style="display:none">
+                <div id="pkWriteKMSelectBlock" class="Block">
+                    <label id="pkWriteKMTitleLabel">Носій особистого ключа:</label>
+                    <br>
+                    <select id="pkWriteKMSelect" class="Select">
+                    </select>
+                </div>
+                <div id="pkWriteKMUserBlock" class="Block" style="display:none">
+                    <label id="pkWriteKMUserTitleLabel">Ім'я користувача:</label>
+                    <br>
+                    <input id="pkWriteKMUserTextField" class="TextField" disabled="">
+                </div>
+                <div id="pkWriteKMPasswordBlock" class="Block">
+                    <label>Пароль захисту ключа:</label>
+                    <br>
+                    <input id="pkWriteKMPasswordTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkWriteKMPasswordConfirmBlock" class="Block">
+                    <label>Підтвердження пароля захисту ключа:</label>
+                    <br>
+                    <input id="pkWriteKMPasswordConfirmTextField" class="TextField" type="password" disabled="">
+                </div>
+                <div id="pkWriteKMButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="pkWriteKMButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Сформувати">
+                            Сформувати
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pkInfoBlock" class="Block" style="display:none">
+            <div class="Block InfoBlock">
+                <h5 id="pkInfoSubjCN"></h5>
+                <div class="Block">
+                    <h6>Організація</h6>
+                    <label id="pkInfoSubjOrg"></label>
+                </div>
+                <div class="Block">
+                    <h6>Підрозділ</h6>
+                    <label id="pkInfoSubjOrgUnit"></label>
+                </div>
+                <div class="Block">
+                    <h6>Посада</h6>
+                    <label id="pkInfoSubjTitle"></label>
+                </div>
+                <div id="pkInfoSubjCodesBlock" class="FlexBlock">
+                    <div class="FlexBlockItem">
+                        <h6>РНОКПП</h6>
+                        <label id="pkInfoSubjDRFOCode"></label>
+                    </div>
+                    <div class="FlexBlockItem">
+                        <h6>УНЗР</h6>
+                        <label id="pkInfoSubjUNZR"></label>
+                    </div>
+                    <div class="FlexBlockItem">
+                        <h6>ЄДРПОУ</h6>
+                        <label id="pkInfoSubjEDRPOUCode"></label>
+                    </div>
+                </div>
+                <div class="Block">
+                    <h6>Сертифікати:</h6>
+                    <div id="pkInfoContentBlock" class="Block">
+                    </div>
+                </div>
+            </div>
+            <div id="pkInfoButtonsBlock" class="ButtonBlock">
+                <br>
+                <div id="pkInfoNextButton" class="Button">
+                    <a href="javascript:void(0);" title="Далі">
+                        Далі
+                    </a>
+                </div>
+                <div id="pkInfoBackButton" class="Button">
+                    <a href="javascript:void(0);" title="Назад">
+                        Назад
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="signBlock" class="Block" style="display:none">
+            <div id="signParamsBlock" class="Block">
+                <div id="signTypeBlock" class="Block">
+                    <label>Тип підпису:</label>
+                    <br>
+                    <input type="radio" name="signTypesRadio" id="signTypeCAdESIntRadioButtonInput" value="1" align="left" checked="checked">
+                    <label for="signTypeCAdESIntRadioButtonInput">Дані та підпис в одному файлі (формат CAdES)</label>
+                    <br>
+                    <input type="radio" name="signTypesRadio" id="signTypeCAdESExtRadioButtonInput" value="2" align="left">
+                    <label for="signTypeCAdESExtRadioButtonInput">Дані та підпис окремими файлами (формат CAdES)</label>
+                    <br>
+                    <input type="radio" name="signTypesRadio" id="signTypeASiCSRadioButtonInput" value="3" align="left">
+                    <label for="signTypeASiCSRadioButtonInput">Дані та підпис в архіві (формат ASiC-S)</label>
+                    <br>
+                </div>
+                <div id="signAlgoBlock" class="Block">
+                    <label>Алгоритм підпису:</label>
+                    <br>
+                    <select id="signAlgoSelect" class="Select"></select>
+                </div>
+                <div id="signFormatBlock" class="Block">
+                    <label>Формат підпису:</label>
+                    <br>
+                    <select id="signFormatSelect" class="Select">
+                        <option value="16">з повними даними для перевірки (CAdES-X-Long)</option>
+                        <option value="8">з посиланням на повні дані для перевірки (CAdES-C)</option>
+                        <option value="4">з позначкою часу від КЕП (CAdES-T)</option>
+                        <option value="1">базовий (CAdES-BES)</option>
+                    </select>
+                </div>
+                <div id="signInFileSelectBlock" class="Block">
+                    <label>Файл для підпису:</label>
+                    <br>
+                    <div class="FlexBlock">
+                        <input id="signInFileTextField" class="TextField" type="text" readonly="true" onclick="document.getElementById('signInFileInput').click();">
+                        <div id="signInFileSelectButton" class="Button ButtonWithLeftMargin">
+                            <a href="javascript:void(0);" title="Обрати" onclick="document.getElementById('signInFileInput').click();">
+                                Обрати
+                            </a>
+                            <input id="signInFileInput" type="file">
+                        </div>
+                    </div>
+                </div>
+                <div id="signOutFileSelectBlock" class="Block" style="display:none">
+                    <label>Ім`я файла з підписом:</label>
+                    <br>
+                    <input id="signOutFileTextField" class="TextField" type="text" readonly="true" value="">
+                </div>
+                <div id="signButtonBlock" class="ButtonBlock">
+                    <br>
+                    <div id="signButton" class="Button" disabled="">
+                        <a href="javascript:void(0);" title="Підписати">
+                            Підписати
+                        </a>
+                    </div>
+                    <div id="signCancelButton" class="Button">
+                        <a href="javascript:void(0);" title="Відміна">
+                            Відміна
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultBlock" class="Block" style="display:none">
+            <div id="resultContentBlock">
+            </div>
+            <div id="resultButtonsBlock" class="ButtonBlock" style="display:none">
+                <br>
+                <div id="resultLeftButton" class="Button">
+                    <a href="javascript:void(0);" title="ОК">
+                        ОК
+                    </a>
+                </div>
+                <div id="resultRightButton" class="Button">
+                    <a href="javascript:void(0);" title="Назад">
+                        Назад
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="dimmerViewBlock" style="cursor: default; display: none;">
+            <div style="display:table;position: absolute;top:0px;left:0px;height:100%;width:100%;">
+                <div style="display: table-cell;vertical-align: middle;">
+                    <label id="dimmerViewMessageLabel" style="line-height:normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Инициализация криптографической библиотеки ...</font></font></label>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>

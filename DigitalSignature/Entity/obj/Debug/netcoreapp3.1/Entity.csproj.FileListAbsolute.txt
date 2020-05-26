@@ -1,0 +1,8 @@
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\bin\Debug\netcoreapp3.1\Entity.deps.json
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\bin\Debug\netcoreapp3.1\Entity.dll
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\bin\Debug\netcoreapp3.1\Entity.pdb
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\obj\Debug\netcoreapp3.1\Entity.csprojAssemblyReference.cache
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\obj\Debug\netcoreapp3.1\Entity.AssemblyInfoInputs.cache
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\obj\Debug\netcoreapp3.1\Entity.AssemblyInfo.cs
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\obj\Debug\netcoreapp3.1\Entity.dll
+C:\Users\Marat\Desktop\Job\Freelance\DigitalSignature\Entity\obj\Debug\netcoreapp3.1\Entity.pdb

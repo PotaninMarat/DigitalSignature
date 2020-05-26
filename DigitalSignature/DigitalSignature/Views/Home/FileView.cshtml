@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "FileEdit";
+}
+@using System.Linq;
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h2>Файлы с цифровой подписью</h2>
+
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Дата</th>
+        <th></th>
+    </tr>
+    @{
+        var paths = System.IO.Directory.GetFiles("Files");
+        foreach (var path in paths)
+        {
+            <tr>
+                <th>@path.Split('\\').Last()</th>
+                <th>@System.IO.File.GetCreationTime(path)</th>
+                <th><a class="file-link" name="@path" asp-controller="Download" asp-action="Load" asp-route-path="@path">Скачать</a></th>
+            </tr>
+        }
+    }
+
+</table>
+
