@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cQkcBX1y1n2KyB4RtvRoiyD+NveZixvPlRECbW9bcYJUr88kUVaVFXqrflvawxX1VsV7+9124Gr0Rdd+FQvC0A==",
+  "dgSpecHash": "X4NIfTXvg2/++RoMqOYjUZ0vNnoJbGTQOsd3llXiNWfjncE/2QrGKQRTVlsk/4NORinQCcug7ETo3z4mgXBWFQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\Entity.csproj",
+  "projectFilePath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\Entity.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.entityframeworkcore\\2.2.0\\microsoft.entityframeworkcore.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.entityframeworkcore.abstractions\\2.2.0\\microsoft.entityframeworkcore.abstractions.2.2.0.nupkg.sha512",

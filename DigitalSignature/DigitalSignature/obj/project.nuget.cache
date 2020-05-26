@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "speSpKjBn1prWPa5ezvnCF26NxVuAdRCrRl6F8QNRz8f16+pkBE7pA1cE8x/Af/HmXrMbTUA6D7HKTCZmR3NTg==",
+  "dgSpecHash": "cT4/3Fre+8B+QhgpaDvbZYywXHyvNrtIMTlj+zEKnOLHRRFmnjxmu27DGD6fVy6AleaBrORCKRYbvTzbWIpT1g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
+  "projectFilePath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

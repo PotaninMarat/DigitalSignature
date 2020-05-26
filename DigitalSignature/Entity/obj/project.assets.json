@@ -2848,11 +2848,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\Entity.csproj",
+      "projectUniqueName": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\Entity.csproj",
       "projectName": "Entity",
-      "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\Entity.csproj",
+      "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\Entity.csproj",
       "packagesPath": "C:\\Users\\Marat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\obj\\",
+      "outputPath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

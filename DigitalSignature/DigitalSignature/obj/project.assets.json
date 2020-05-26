@@ -7025,11 +7025,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
+      "projectUniqueName": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
       "projectName": "DigitalSignature",
-      "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
+      "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\DigitalSignature\\DigitalSignature.csproj",
       "packagesPath": "C:\\Users\\Marat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\DigitalSignature\\obj\\",
+      "outputPath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\DigitalSignature\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -7050,8 +7050,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\Entity.csproj": {
-              "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\Freelance\\DigitalSignature\\Entity\\Entity.csproj"
+            "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\Entity.csproj": {
+              "projectPath": "C:\\Users\\Marat\\Desktop\\Job\\AI\\DigitalSignature\\DigitalSignature\\Entity\\Entity.csproj"
             }
           }
         }

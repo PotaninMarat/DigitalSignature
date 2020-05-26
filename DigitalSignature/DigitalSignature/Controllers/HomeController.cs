@@ -79,21 +79,27 @@ namespace DigitalSignature.Controllers
             var splits = key.Split('.');
             var name = "";
             for (int i = 0; i < splits.Length-1; i++)
-            {
                 name += splits[i];
-            }
+            
 
             var zp = "." + splits.Last();
             var value = first.Value.FirstOrDefault();
             var spltB = value.Split(',');
             var bytes = new byte[spltB.Length];
             for (int i = 0; i < spltB.Length; i++)
-            {
                 bytes[i] = byte.Parse(spltB[i]);
-            }
-            //value.
+            
+
             Random r = new Random();
-            using(var stream = new FileStream($"Files\\{name}_{r.Next(1, 10000)}{zp}", FileMode.Create))
+
+            string path = $"Files\\";
+
+            if (zp == ".p7s") path += "p7s\\";
+            else path += "xls\\";
+
+            path += $"{name}_{r.Next(1, 10000)}{zp}";
+
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 stream.Write(bytes, 0, bytes.Length);
             }
