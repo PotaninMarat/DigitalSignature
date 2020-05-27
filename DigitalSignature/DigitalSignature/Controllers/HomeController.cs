@@ -73,6 +73,7 @@ namespace DigitalSignature.Controllers
         [HttpPost]
         public IActionResult UploadFiles()
         {
+            var username = User.Identity.Name;
             Random r = new Random();
             var form = Request.Form;
 
@@ -87,8 +88,8 @@ namespace DigitalSignature.Controllers
 
             var randInt = r.Next(1, 1000);
 
-            string path1 = $"Files\\xls\\{fileName1[0]}_{randInt}.{fileName1[1]}";
-            string path2 = $"Files\\p7s\\{fileName1[0]}_{randInt}.{fileName2[1]}";
+            string path1 = $"Files\\xls\\{username}___{fileName1[0]}_{randInt}.{fileName1[1]}";
+            string path2 = $"Files\\p7s\\{username}___{fileName1[0]}_{randInt}.{fileName2[1]}";
 
 
             using (var stream = new FileStream(path1, FileMode.Create))
